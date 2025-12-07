@@ -40,7 +40,7 @@ pub fn part_two(input: &str) -> Option<u64> {
                         break;
                     }
                 }
-                if found_error == false {
+                if !found_error {
                     invalid_ids.insert(id.clone());
                 }
             }
@@ -57,11 +57,11 @@ pub fn part_two(input: &str) -> Option<u64> {
 fn parse_ranges(input: &str) -> Vec<(u64, u64)> {
     input
         .split(",")
-        .filter(|range_string| range_string.len() > 0)
+        .filter(|range_string| !range_string.is_empty())
         .map(|range_string| range_string.trim().split("-").collect())
         .map(|id_range: Vec<&str>| {
             let start: u64 = id_range
-                .get(0)
+                .first()
                 .expect("Vector should have something in index 0.")
                 .parse()
                 .expect("Beginning should be an Integer.");
